@@ -1,4 +1,4 @@
-package producer_consumer;
+package queue;
 
 public class Queue {
 
@@ -6,13 +6,14 @@ public class Queue {
 
     private long[] queArray;
 
-    private int front; // first
+    private int front;
 
-    private  int rear; // last
+    private int rear;
 
-    private  int nItems;
+    private int nItems;
 
     public Queue(int maxSize) {
+        // init start condition
         this.maxSize = maxSize;
         queArray = new long[this.maxSize];
         front = 0;
@@ -20,14 +21,15 @@ public class Queue {
         nItems = 0;
     }
 
-    public synchronized void insert(long j) {
-        if (rear == maxSize - 1)
+    public void insert(long j) {
+        if (rear == maxSize - 1) {
             rear = -1;
+        }
         queArray[++rear] = j;
         nItems++;
     }
 
-    public synchronized long remove() {
+    public long remove() {
         long temp = queArray[front++];
         if (front == maxSize)
             front = 0;
@@ -35,8 +37,8 @@ public class Queue {
         return temp;
     }
 
-    public int size() {
-        return nItems;
+    public long peekFront() {
+        return queArray[nItems];
     }
 
     public boolean isEmpty() {
@@ -44,7 +46,11 @@ public class Queue {
     }
 
     public boolean isFull() {
-        return (nItems == maxSize);
+        return nItems == maxSize;
+    }
+
+    public int size() {
+        return nItems;
     }
 
 }

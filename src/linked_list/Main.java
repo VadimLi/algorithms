@@ -1,34 +1,93 @@
 package linked_list;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Main {
 
-    public static void main(String[] args) {
-        final DoubledLinkedList linkedList = new DoubledLinkedList();
-        linkedList.insertLast(10);
-        linkedList.insertLast(15);
-        linkedList.insertLast(20);
-        linkedList.insertLast(25);
+    public static void main(String[] args) throws IOException {
+        final LinkList theList = new LinkList();
+        final ListIterator iter1 = theList.getIterator();
+        long value;
 
-        linkedList.insertFirst(50);
-        linkedList.insertFirst(100);
-        linkedList.insertFirst(1000);
+        iter1.insertAfter(20);
+        iter1.insertAfter(40);
+        iter1.insertAfter(80);
+        iter1.insertAfter(60);
 
+        while (true) {
+            System.out.print("Enter first letter of show, reset, ");
+            System.out.print("next, get, before, after, delete: ");
+            System.out.flush();
+            int choice = getChar();
+            switch (choice) {
+                case 's':
+                    if ( !theList.isEmpty() )
+                        theList.displayList();
+                    else
+                        System.out.println("List is empty");
+                    break;
+                case 'r':
+                    iter1.reset();
+                    break;
+                case 'n':
+                    if ( !theList.isEmpty() && !iter1.atEnd() ) {
+                        iter1.nextLink();
+                    } else {
+                        System.out.println("Can't go to next link");
+                    }
+                    break;
+                case 'g':
+                    if ( !theList.isEmpty() ) {
+                        value = iter1.getCurrent().dData;
+                        System.out.println("Returned " + value);
+                    } else {
+                        System.out.println("List is empty");
+                    }
+                    break;
+                case 'b':
+                    System.out.println("Enter value to insert: ");
+                    System.out.flush();
+                    value = getInt();
+                    iter1.insertBefore(value);
+                    break;
+                case 'a':
+                    System.out.print("Enter value to insert");
+                    System.out.flush();
+                    value = getInt();
+                    iter1.insertAfter(value);
+                    break;
+                case 'd':
+                    if ( !theList.isEmpty() ) {
+                        value = iter1.deleteCurrent();
+                        System.out.println("Deleted " + value);
+                    } else {
+                        System.out.println("Can't delete");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid entry");
+            }
+        }
 
-        linkedList.deleteLast();
-        linkedList.deleteLast();
+    }
 
-        linkedList.deleteFirst();
-        linkedList.deleteFirst();
+    public static String getString() throws IOException {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        String s = br.readLine();
+        return s;
+    }
 
-        linkedList.insertAfter(50, 100);
-        linkedList.insertAfter(100, 1000);
+    public static int getChar() throws IOException {
+        String s = getString();
+        return s.charAt(0);
+    }
 
-        linkedList.deleteKey(100);
-        linkedList.deleteKey(1000);
-        linkedList.deleteKey(50);
-
-        linkedList.displayList();
-
+    public static long getInt() throws IOException {
+        String s = getString();
+        return Integer.parseInt(s);
     }
 
 }

@@ -9,7 +9,6 @@ public class Main {
                 new SynchronizationQueue();
         new Consumer(synchronizationQueue);
         new Producer(synchronizationQueue);
-
     }
 
 }

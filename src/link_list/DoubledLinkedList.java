@@ -1,4 +1,4 @@
-package linked_list;
+package link_list;
 
 public class DoubledLinkedList {
 
@@ -7,6 +7,7 @@ public class DoubledLinkedList {
     private Link last;
 
     public DoubledLinkedList() {
+        // initialize
         first = null;
         last = null;
     }
@@ -15,8 +16,8 @@ public class DoubledLinkedList {
         return first == null;
     }
 
-    public void insertFirst(long d) {
-        Link newLink = new Link(d);
+    public void insertFirst(long dd) {
+        Link newLink = new Link(dd);
         if ( isEmpty() ) {
             last = newLink;
         } else {
@@ -26,8 +27,8 @@ public class DoubledLinkedList {
         first = newLink;
     }
 
-    public void insertLast(long d) {
-        Link newLink = new Link(d);
+    public void insertLast(long dd) {
+        Link newLink = new Link(dd);
         if ( isEmpty() ) {
             first = newLink;
         } else {
@@ -49,7 +50,7 @@ public class DoubledLinkedList {
     }
 
     public Link deleteLast() {
-        Link temp = first;
+        Link temp = last;
         if (first.next == null) {
             first = null;
         } else {
@@ -59,7 +60,7 @@ public class DoubledLinkedList {
         return temp;
     }
 
-    public boolean insertAfter(long key, long d) {
+    public boolean insertAfter(long key, long dd) {
         Link current = first;
         while (current.dData != key) {
             current = current.next;
@@ -67,13 +68,13 @@ public class DoubledLinkedList {
                 return false;
             }
         }
-        Link newLink = new Link(d);
+        Link newLink = new Link(dd);
         if (current == last) {
             newLink.next = null;
             last = newLink;
         } else {
-            newLink.next = current.next;
             current.next.previous = newLink;
+            newLink.next = current.next;
         }
         newLink.previous = current;
         current.next = newLink;
@@ -88,12 +89,12 @@ public class DoubledLinkedList {
                 return null;
             }
         }
+
         if (current == first) {
             first = current.next;
         } else {
             current.previous.next = current.next;
         }
-
         if (current == last) {
             last = current.previous;
         } else {
@@ -102,12 +103,26 @@ public class DoubledLinkedList {
         return current;
     }
 
-    public void displayList() {
+    public void displayForward() {
+        System.out.println("List (first-->last): ");
         Link current = first;
         while (current != null) {
-            current.displayLink();
+            System.out.println(current.dData);
             current = current.next;
         }
+        System.out.println("");
+    }
+
+    public void displayBackward() {
+        System.out.println("List (last-->next): ");
+        Link current = last;
+        while (current != null) {
+            while (current != null) {
+                System.out.println(current.dData);
+                current = current.previous;
+            }
+        }
+        System.out.println("");
     }
 
 }

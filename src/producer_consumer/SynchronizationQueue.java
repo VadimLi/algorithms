@@ -2,7 +2,7 @@ package producer_consumer;
 
 public class SynchronizationQueue {
 
-    private final Queue queue;
+    private Queue queue;
 
     public SynchronizationQueue() {
         queue = new Queue(10);
